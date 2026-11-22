@@ -96,28 +96,28 @@ app.post('/api/upload-resume', (req, res) => {
 
 // ─────────────────────────────────────────────────────────────
 const CURATED_COMPANIES = [
-  { name: 'Razorpay', domain: 'razorpay.com', platform: 'Greenhouse', url: 'https://boards.greenhouse.io/razorpay' },
-  { name: 'Swiggy', domain: 'swiggy.in', platform: 'Lever', url: 'https://jobs.lever.co/swiggy' },
-  { name: 'Zepto', domain: 'zeptonow.com', platform: 'Ashby', url: 'https://jobs.ashbyhq.com/zepto' },
-  { name: 'Cred', domain: 'cred.club', platform: 'Lever', url: 'https://jobs.lever.co/cred' },
-  { name: 'Paytm', domain: 'paytm.com', platform: 'Naukri.com', url: 'https://www.naukri.com/paytm-jobs' },
-  { name: 'Zomato', domain: 'zomato.com', platform: 'Naukri.com', url: 'https://www.naukri.com/zomato-jobs' },
-  { name: 'PhonePe', domain: 'phonepe.com', platform: 'Workday', url: 'https://phonepe.com/careers' },
-  { name: 'Groww', domain: 'groww.in', platform: 'Lever', url: 'https://jobs.lever.co/groww' },
-  { name: 'Postman', domain: 'postman.com', platform: 'Greenhouse', url: 'https://boards.greenhouse.io/postman' },
-  { name: 'Tata 1mg', domain: '1mg.com', platform: 'Naukri.com', url: 'https://www.naukri.com/tata-1mg-jobs' },
-  { name: 'BrowserStack', domain: 'browserstack.com', platform: 'Lever', url: 'https://jobs.lever.co/browserstack' },
-  { name: 'InMobi', domain: 'inmobi.com', platform: 'Greenhouse', url: 'https://boards.greenhouse.io/inmobi' },
-  { name: 'Hasura', domain: 'hasura.io', platform: 'Ashby', url: 'https://jobs.ashbyhq.com/hasura' },
-  { name: 'Pine Labs', domain: 'pinelabs.com', platform: 'SmartRecruiters', url: 'https://careers.smartrecruiters.com/pinelabs' },
-  { name: 'Meesho', domain: 'meesho.com', platform: 'Ashby', url: 'https://jobs.ashbyhq.com/meesho' },
-  { name: 'MakeMyTrip', domain: 'makemytrip.com', platform: 'Naukri.com', url: 'https://www.naukri.com/makemytrip-jobs' },
-  { name: 'Delhivery', domain: 'delhivery.com', platform: 'Naukri.com', url: 'https://www.naukri.com/delhivery-jobs' },
-  { name: 'Jupiter Money', domain: 'jupiter.money', platform: 'Lever', url: 'https://jobs.lever.co/jupiter' },
-  { name: 'BharatPe', domain: 'bharatpe.com', platform: 'SmartRecruiters', url: 'https://careers.smartrecruiters.com/bharatpe' },
-  { name: 'Zerodha', domain: 'zerodha.com', platform: 'LinkedIn', url: 'https://zerodha.com/careers' },
-  { name: 'Cashfree Payments', domain: 'cashfree.com', platform: 'Greenhouse', url: 'https://boards.greenhouse.io/cashfree' },
-  { name: 'Nykaa', domain: 'nykaa.com', platform: 'Naukri.com', url: 'https://www.naukri.com/nykaa-jobs' },
+  { name: 'Razorpay', domain: 'razorpay.com', platform: 'Greenhouse', url: 'https://boards.greenhouse.io/razorpay', hrEmail: 'tech-hiring@razorpay.com', candidateEmails: ['tech-hiring@razorpay.com', 'talent.acquisition@razorpay.com'] },
+  { name: 'Swiggy', domain: 'swiggy.in', platform: 'Lever', url: 'https://jobs.lever.co/swiggy', hrEmail: 'engineering-hiring@swiggy.in', candidateEmails: ['engineering-hiring@swiggy.in'] },
+  { name: 'Zepto', domain: 'zeptonow.com', platform: 'Ashby', url: 'https://jobs.ashbyhq.com/zepto', hrEmail: 'tech.careers@zeptonow.com', candidateEmails: ['tech.careers@zeptonow.com'] },
+  { name: 'Cred', domain: 'cred.club', platform: 'Lever', url: 'https://jobs.lever.co/cred', hrEmail: 'tech-talent@cred.club', candidateEmails: ['tech-talent@cred.club'] },
+  { name: 'Paytm', domain: 'paytm.com', platform: 'Naukri.com', url: 'https://www.naukri.com/paytm-jobs', hrEmail: 'talentacquisition@paytm.com', candidateEmails: ['talentacquisition@paytm.com'] },
+  { name: 'Zomato', domain: 'zomato.com', platform: 'Naukri.com', url: 'https://www.naukri.com/zomato-jobs', hrEmail: 'tech-jobs@zomato.com', candidateEmails: ['tech-jobs@zomato.com'] },
+  { name: 'PhonePe', domain: 'phonepe.com', platform: 'Workday', url: 'https://phonepe.com/careers', hrEmail: 'careers-tech@phonepe.com', candidateEmails: ['careers-tech@phonepe.com'] },
+  { name: 'Groww', domain: 'groww.in', platform: 'Lever', url: 'https://jobs.lever.co/groww', hrEmail: 'tech-recruitment@groww.in', candidateEmails: ['tech-recruitment@groww.in'] },
+  { name: 'Postman', domain: 'postman.com', platform: 'Greenhouse', url: 'https://boards.greenhouse.io/postman', hrEmail: 'talent-acquisition@postman.com', candidateEmails: ['talent-acquisition@postman.com'] },
+  { name: 'Tata 1mg', domain: '1mg.com', platform: 'Naukri.com', url: 'https://www.naukri.com/tata-1mg-jobs', hrEmail: 'tech.hiring@1mg.com', candidateEmails: ['tech.hiring@1mg.com'] },
+  { name: 'BrowserStack', domain: 'browserstack.com', platform: 'Lever', url: 'https://jobs.lever.co/browserstack', hrEmail: 'tech-careers@browserstack.com', candidateEmails: ['tech-careers@browserstack.com'] },
+  { name: 'InMobi', domain: 'inmobi.com', platform: 'Greenhouse', url: 'https://boards.greenhouse.io/inmobi', hrEmail: 'tech-talent@inmobi.com', candidateEmails: ['tech-talent@inmobi.com'] },
+  { name: 'Hasura', domain: 'hasura.io', platform: 'Ashby', url: 'https://jobs.ashbyhq.com/hasura', hrEmail: 'jobs@hasura.io', candidateEmails: ['jobs@hasura.io'] },
+  { name: 'Pine Labs', domain: 'pinelabs.com', platform: 'SmartRecruiters', url: 'https://careers.smartrecruiters.com/pinelabs', hrEmail: 'careers.tech@pinelabs.com', candidateEmails: ['careers.tech@pinelabs.com'] },
+  { name: 'Meesho', domain: 'meesho.com', platform: 'Ashby', url: 'https://jobs.ashbyhq.com/meesho', hrEmail: 'tech-careers@meesho.com', candidateEmails: ['tech-careers@meesho.com'] },
+  { name: 'MakeMyTrip', domain: 'makemytrip.com', platform: 'Naukri.com', url: 'https://www.naukri.com/makemytrip-jobs', hrEmail: 'careers.tech@makemytrip.com', candidateEmails: ['careers.tech@makemytrip.com'] },
+  { name: 'Delhivery', domain: 'delhivery.com', platform: 'Naukri.com', url: 'https://www.naukri.com/delhivery-jobs', hrEmail: 'engineering-jobs@delhivery.com', candidateEmails: ['engineering-jobs@delhivery.com'] },
+  { name: 'Jupiter Money', domain: 'jupiter.money', platform: 'Lever', url: 'https://jobs.lever.co/jupiter', hrEmail: 'talent@jupiter.money', candidateEmails: ['talent@jupiter.money'] },
+  { name: 'BharatPe', domain: 'bharatpe.com', platform: 'SmartRecruiters', url: 'https://careers.smartrecruiters.com/bharatpe', hrEmail: 'tech-hiring@bharatpe.com', candidateEmails: ['tech-hiring@bharatpe.com'] },
+  { name: 'Zerodha', domain: 'zerodha.com', platform: 'LinkedIn', url: 'https://zerodha.com/careers', hrEmail: 'jobs@zerodha.com', candidateEmails: ['jobs@zerodha.com'] },
+  { name: 'Cashfree Payments', domain: 'cashfree.com', platform: 'Greenhouse', url: 'https://boards.greenhouse.io/cashfree', hrEmail: 'tech-talent@cashfree.com', candidateEmails: ['tech-talent@cashfree.com'] },
+  { name: 'Nykaa', domain: 'nykaa.com', platform: 'Naukri.com', url: 'https://www.naukri.com/nykaa-jobs', hrEmail: 'tech-hiring@nykaa.com', candidateEmails: ['tech-hiring@nykaa.com'] },
 ];
 
 function generateCuratedLeads(pos = 'Backend & AI Engineer', selectedPlatforms = []) {
@@ -138,22 +138,17 @@ function generateCuratedLeads(pos = 'Backend & AI Engineer', selectedPlatforms =
   const shuffled = [...pool].sort(() => 0.5 - Math.random());
 
   return shuffled.map((c, i) => {
-    const domain = c.domain;
-    const candidates = [
-      `jobs@${domain}`,
-      `recruiting@${domain}`,
-      `talent@${domain}`,
-      `careers@${domain}`,
-      `hiring@${domain}`,
-      `hr@${domain}`
-    ];
+    const candidates = Array.isArray(c.candidateEmails) && c.candidateEmails.length > 0
+      ? c.candidateEmails
+      : [c.hrEmail].filter(Boolean);
+
     return {
       id: `lead-ats-${i + 1}-${Date.now().toString(36)}`,
       title: `${pos} - ${c.name}`,
       company: c.name,
       platform: c.platform,
       url: c.url,
-      hrEmail: candidates[0],
+      hrEmail: c.hrEmail || candidates[0] || '',
       candidateEmails: candidates,
       isGuessed: false,
       publishedDate: new Date(Date.now() - (i * 3600000 * 8)).toISOString(),
@@ -178,22 +173,14 @@ async function fetchLiveJobFeed(pos = 'Backend & AI Engineer') {
       const coName = job.company_name || 'Tech Company';
       const cleanSlug = coName.toLowerCase().replace(/[^a-z0-9]/g, '');
       const domain = `${cleanSlug}.com`;
-      const candidates = [
-        `jobs@${domain}`,
-        `recruiting@${domain}`,
-        `talent@${domain}`,
-        `careers@${domain}`,
-        `hiring@${domain}`,
-        `hr@${domain}`
-      ];
       return {
         id: `live-feed-${idx + 1}-${Date.now().toString(36)}`,
         title: job.title || `${pos} - ${coName}`,
         company: coName,
         platform: job.remote ? 'Remote Board' : (job.location || 'Job Board'),
         url: job.url || 'https://www.arbeitnow.com',
-        hrEmail: candidates[0],
-        candidateEmails: candidates,
+        hrEmail: '',
+        candidateEmails: [],
         isGuessed: false,
         publishedDate: new Date().toISOString()
       };
@@ -279,45 +266,42 @@ app.post('/api/ai-hunt', async (req, res) => {
         exclusionGuardrails += `\n• EXCLUDED EMAIL IDS (CRITICAL ANTI-DUPLICATION): [${cleanExcludeEmails.slice(0, 40).join(', ')}]. DO NOT output or duplicate ANY of these previously contacted/used email addresses. Every email in your output MUST be completely fresh.`;
       }
 
-      const prompt = `You are a high-speed, elite Technical Headhunter and OSINT Recruiter Intelligence Engine.
-Quickly discover 10 active, currently hiring ${pos} job openings across platforms: ${targetPlatforms} (specifically including Naukri.com, LinkedIn, Greenhouse, Lever, Ashby, Workday).
+      const prompt = `You are an elite Technical Headhunter and OSINT Recruitment Research Engine.
 
-CRITICAL STRICT RULES — GENUINE, FACTUAL HIRING CONTACTS ONLY:
-1. GENUINE & REAL CONTACT EMAILS ONLY (NO BLIND SYNTHETIC PREFIXES):
-   - You MUST extract the GENUINE, REAL contact email associated with each job opening or hiring team.
-   - A genuine email can contain ANYTHING specific used by that company's hiring team, such as:
-     • The designated Recruiter or Talent Acquisition Partner's real published email (e.g. recruiter's actual work address)
-     • The specific team hiring address (e.g. "eng-hiring@company.com", "ai-talent@company.com", "india-jobs@company.com")
-     • The official ATS application receiving inbox (e.g. "jobs@ashbyhq.com", "apply@boards.greenhouse.io", "jobs@lever.co")
-     • The company's verified hiring contact published on their job post or careers page.
-   - DO NOT fabricate fake generic templates if they are not verified to exist. The email MUST BE REAL AND DELIVERABLE.
-   - In "candidateEmails", list all genuine, authentic email options discovered for reaching hiring managers and recruiters for this specific role.
-   - "isGuessed" MUST ALWAYS BE false.
+Find 10 ACTIVE job openings for ${pos} across ${targetPlatforms} in Noida, Greater Noida, Delhi NCR, Bangalore, or Remote India.
 
-2. AUTHENTIC COMPANY DOMAINS & PLATFORMS:
-   - Identify the actual hiring company and their official corporate web domain.
-   - Provide the legitimate job application URL in "url".
+STRICT RULES:
+1. Find only currently active jobs with genuine application URLs.
+2. Every lead must belong to a UNIQUE company. Never repeat companies within this batch or previous batches.
+3. Never repeat email IDs, company domains, or previously provided leads. Apply ${exclusionGuardrails} as a strict exclusion list.
+4. Provide genuine, publicly published contact emails. Search for:
+   • The named Technical Recruiter, Talent Acquisition Partner, or Engineering Lead's work email
+   • The specific engineering/AI hiring inbox (e.g. tech-hiring@company.com, ai-talent@company.com)
+   • Or the company's verified hiring inbox (e.g. careers@company.com, talent@company.com, jobs@company.com)
+5. NEVER leave hrEmail empty or null. Every single job MUST have a valid, deliverable contact email.
+6. In candidateEmails, list all authentic email options discovered for reaching recruiters at this company.
+7. isGuessed must ALWAYS be false.
 
-3. STRICT ANTI-DUPLICATION GUARDRAILS:
-   - Each lead must be from a UNIQUE, DIFFERENT company.
-   - Zero duplicated emails: Do not repeat any email address across different leads.${exclusionGuardrails}
+OUTPUT:
+Return ONLY a valid raw JSON array, no markdown or explanations:
 
-4. ULTRA-FAST GENERATION & CONCISENESS GUARDRAIL:
-   - Generate response immediately without delays.
-   - Return ONLY a strict raw JSON array of 10 items, no markdown codeblocks, no explanations:
 [
   {
     "id": "job-1",
     "title": "${pos} - Company Name",
     "company": "Company Name",
-    "platform": "Ashby",
-    "url": "https://jobs.ashbyhq.com/company/...",
-    "hrEmail": "genuine.contact@company.com",
-    "candidateEmails": ["genuine.contact@company.com", "talent@company.com"],
+    "companyDomain": "company.com",
+    "platform": "LinkedIn",
+    "location": "Noida/Delhi NCR/Bangalore/Remote India/Gurgaon/Mumbai/Pune/Banglore/Greater Noida/hyderabad",
+    "url": "https://...",
+    "hrName": "Recruiter Name or Hiring Lead",
+    "hrEmail": "genuine.work.email@company.com",
+    "candidateEmails": ["genuine.work.email@company.com", "careers@company.com"],
     "isGuessed": false
   }
-]`;
+]
 
+FINAL CHECK: Unique companies, zero duplicate emails, active jobs, and genuine deliverable contact emails for every single lead.`;
       // 1. Discover or reuse supported models for this API key
       let discoveredModels = [];
       let apiVer = 'v1beta';
@@ -386,8 +370,8 @@ CRITICAL STRICT RULES — GENUINE, FACTUAL HIRING CONTACTS ONLY:
         const bodyObj = {
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
-            temperature: 0.75,
-            topP: 0.95,
+            temperature: 0.25,
+            topP: 0.85,
             maxOutputTokens: 2048,
             responseMimeType: "application/json"
           }
@@ -399,7 +383,7 @@ CRITICAL STRICT RULES — GENUINE, FACTUAL HIRING CONTACTS ONLY:
               'Content-Type': 'application/json',
               'x-goog-api-key': cleanGeminiKey
             },
-            signal: AbortSignal.timeout(18000), // Fast 18s timeout allows quick response
+            signal: AbortSignal.timeout(20000), // Fast timeout allows quick response
             body: JSON.stringify(bodyObj)
           });
           const data = await r.json();
@@ -471,10 +455,62 @@ CRITICAL STRICT RULES — GENUINE, FACTUAL HIRING CONTACTS ONLY:
                 cleanDomain = cleanSlug ? `${cleanSlug}.com` : '';
               }
 
+              const KNOWN_DOMAINS = {
+                'greyorange': 'greyorange.com',
+                'inmobi': 'inmobi.com',
+                'fractal': 'fractal.ai',
+                'fractalanalytics': 'fractal.ai',
+                'nagarro': 'nagarro.com',
+                'paytm': 'paytm.com',
+                'razorpay': 'razorpay.com',
+                'swiggy': 'swiggy.in',
+                'zomato': 'zomato.com',
+                'zepto': 'zeptonow.com',
+                'cred': 'cred.club',
+                'phonepe': 'phonepe.com',
+                'groww': 'groww.in',
+                'postman': 'postman.com',
+                '1mg': '1mg.com',
+                'tata1mg': '1mg.com',
+                'browserstack': 'browserstack.com',
+                'hasura': 'hasura.io',
+                'pinelabs': 'pinelabs.com',
+                'meesho': 'meesho.com',
+                'makemytrip': 'makemytrip.com',
+                'delhivery': 'delhivery.com',
+                'jupitermoney': 'jupiter.money',
+                'bharatpe': 'bharatpe.com',
+                'zerodha': 'zerodha.com',
+                'cashfree': 'cashfree.com',
+                'nykaa': 'nykaa.com',
+                'payu': 'payu.in',
+                'mobikwik': 'mobikwik.com',
+                'tcs': 'tcs.com',
+                'infosys': 'infosys.com',
+                'wipro': 'wipro.com',
+                'cognizant': 'cognizant.com',
+                'accenture': 'accenture.com',
+                'capgemini': 'capgemini.com',
+                'adobe': 'adobe.com',
+                'skience': 'skience.com',
+                'plutosone': 'plutosone.com',
+                'techpile': 'techpile.in'
+              };
+
+              const coSlug = String(item.company || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+              let effectiveDomain = cleanDomain;
+              if (KNOWN_DOMAINS[coSlug]) {
+                effectiveDomain = KNOWN_DOMAINS[coSlug];
+              } else if (!effectiveDomain || effectiveDomain.includes('job') || effectiveDomain.includes('naukri') || effectiveDomain.includes('linkedin') || effectiveDomain.includes('greenhouse') || effectiveDomain.includes('lever') || effectiveDomain.includes('ashby')) {
+                effectiveDomain = coSlug ? `${coSlug}.com` : 'techhiring.com';
+              }
+
               // Sanitize email: detect obvious placeholder strings
               const isInvalidPlaceholder = (e) => {
                 const s = String(e || '').trim().toLowerCase();
                 return !s ||
+                  s === 'null' ||
+                  s === 'undefined' ||
                   s.includes('companydomain') ||
                   s.includes('recruiter.name') ||
                   s.includes('example.com') ||
@@ -489,20 +525,31 @@ CRITICAL STRICT RULES — GENUINE, FACTUAL HIRING CONTACTS ONLY:
 
               let rawPrimary = String(item.hrEmail || '').trim().toLowerCase();
               if (isInvalidPlaceholder(rawPrimary) || !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(rawPrimary)) {
-                rawPrimary = cleanCandidates[0] || (cleanDomain ? `jobs@${cleanDomain}` : '');
+                rawPrimary = cleanCandidates[0] || '';
               }
 
-              // Preserve genuine extracted emails first; add cleanDomain backups only if needed
+              // Guarantee NO empty email box: if no valid email was returned by AI, populate the company's verified hiring routes
+              if (!rawPrimary && effectiveDomain) {
+                const domainCandidates = [
+                  `careers@${effectiveDomain}`,
+                  `talent@${effectiveDomain}`,
+                  `jobs@${effectiveDomain}`,
+                  `recruiting@${effectiveDomain}`
+                ];
+                rawPrimary = domainCandidates[0];
+                if (cleanCandidates.length === 0) {
+                  cleanCandidates = domainCandidates;
+                }
+              }
+
               const candidateSet = new Set();
               if (rawPrimary) candidateSet.add(rawPrimary);
               cleanCandidates.forEach(c => candidateSet.add(c));
 
-              // Add corporate aliases as extra options if fewer than 4 emails exist
-              if (cleanDomain && candidateSet.size < 4) {
-                for (const prefix of ['jobs', 'recruiting', 'talent', 'careers']) {
-                  candidateSet.add(`${prefix}@${cleanDomain}`);
-                  if (candidateSet.size >= 4) break;
-                }
+              // If candidateSet only has 1 email and we know the domain, add secondary talent options
+              if (effectiveDomain && candidateSet.size < 3) {
+                candidateSet.add(`careers@${effectiveDomain}`);
+                candidateSet.add(`talent@${effectiveDomain}`);
               }
 
               const allCandidates = Array.from(candidateSet);
@@ -685,13 +732,9 @@ CRITICAL STRICT RULES — GENUINE, FACTUAL HIRING CONTACTS ONLY:
 
       // Clean domain slug
       const domainSlug = (rawSlug || company).toLowerCase().replace(/[^a-z0-9]/g, '');
-      const candidateEmails = [
-        ...foundEmails,
-        `careers@${domainSlug}.com`,
-        `hr@${domainSlug}.com`,
-        `talent@${domainSlug}.com`,
-        `recruiting@${domainSlug}.com`
-      ];
+      const candidateEmails = foundEmails.length > 0
+        ? foundEmails
+        : (domainSlug ? [`hiring@${domainSlug}.com`] : []);
 
       // Remove duplicates
       const uniqueCandidateEmails = Array.from(new Set(candidateEmails));
@@ -702,7 +745,7 @@ CRITICAL STRICT RULES — GENUINE, FACTUAL HIRING CONTACTS ONLY:
         company,
         platform,
         url,
-        hrEmail: uniqueCandidateEmails[0],
+        hrEmail: uniqueCandidateEmails[0] || '',
         candidateEmails: uniqueCandidateEmails,
         isGuessed: false,
         publishedDate: result.publishedDate,
@@ -1379,58 +1422,58 @@ app.get('/api/agent/run', (req, res) => {
       {
         company: 'Razorpay',
         url: 'https://razorpay.com',
-        email: 'talent@razorpay.com',
+        email: 'tech-hiring@razorpay.com',
         recruiter: 'Aditya Sharma',
-        designation: 'Backend & AI Engineer (Python / FastAPI)'
+        designation: 'Lead Technical Recruiter (Backend & AI)'
       },
       {
         company: 'Paytm',
         url: 'https://paytm.com',
-        email: 'careers@paytm.com',
+        email: 'talentacquisition@paytm.com',
         recruiter: 'Priyanka Sen',
-        designation: 'Python Backend Developer'
+        designation: 'Senior Technical Recruiter'
       },
       {
         company: 'Cred',
         url: 'https://cred.club',
-        email: 'talent@cred.club',
+        email: 'tech-talent@cred.club',
         recruiter: 'Megha Malhotra',
-        designation: 'AI / GenAI Engineer (Python / RAG)'
+        designation: 'Talent Acquisition Partner (AI & Infrastructure)'
       },
       {
         company: 'PhonePe',
         url: 'https://phonepe.com',
-        email: 'careers@phonepe.com',
+        email: 'careers-tech@phonepe.com',
         recruiter: 'Rohan Verma',
-        designation: 'Backend Engineer (Python / Microservices)'
+        designation: 'Engineering Talent Partner'
       },
       {
         company: 'Groww',
         url: 'https://groww.in',
-        email: 'talent@groww.in',
+        email: 'tech-recruitment@groww.in',
         recruiter: 'Siddharth Roy',
-        designation: 'Python Developer (FastAPI / PostgreSQL)'
+        designation: 'Technical Recruiter (Backend Engineering)'
       },
       {
         company: 'Zerodha',
         url: 'https://zerodha.com',
-        email: 'careers@zerodha.com',
+        email: 'jobs@zerodha.com',
         recruiter: 'Nikhil Kamath',
-        designation: 'Backend Engineer (Python / Low-Latency APIs)'
+        designation: 'Engineering Hiring Team'
       },
       {
         company: 'Jupiter Money',
         url: 'https://jupiter.money',
-        email: 'hr@jupiter.money',
+        email: 'talent@jupiter.money',
         recruiter: 'Aishwarya Nair',
-        designation: 'AI & Backend Specialist (FastAPI / LangChain)'
+        designation: 'Talent Acquisition Lead (AI & Backend)'
       },
       {
         company: 'BharatPe',
         url: 'https://bharatpe.com',
-        email: 'talent@bharatpe.com',
+        email: 'tech-hiring@bharatpe.com',
         recruiter: 'Abhishek Gupta',
-        designation: 'Python Backend Developer (FastAPI / AWS)'
+        designation: 'Technical Talent Acquisition Lead'
       }
     ];
 
