@@ -42,8 +42,22 @@ export const BatchMailer: React.FC<BatchMailerProps> = ({ data }) => {
   const [copiedTextIndex, setCopiedTextIndex] = useState<number | null>(null);
 
   // SMTP Credentials state (Prefilled with user details)
-  const [gmailAddress, setGmailAddress] = useState(() => localStorage.getItem('sheetSync_gmailAddress') || localStorage.getItem('sheetSync_smtpUser') || 'gutkarsh191@gmail.com');
-  const [appPassword, setAppPassword] = useState(() => (localStorage.getItem('sheetSync_gmailAppPassword') || localStorage.getItem('sheetSync_smtpPass') || 'akqltiacqtgtptsw').replace(/\s+/g, ''));
+  const [gmailAddress, setGmailAddress] = useState(() => {
+    const saved = (localStorage.getItem('sheetSync_gmailAddress') || localStorage.getItem('sheetSync_smtpUser') || '').trim();
+    if (!saved || saved === 'gutkarsh191@gmail.com' || saved.toLowerCase().includes('utkarsh')) {
+      localStorage.setItem('sheetSync_smtpUser', 'kmcheshtamzn@gmail.com');
+      return 'kmcheshtamzn@gmail.com';
+    }
+    return saved;
+  });
+  const [appPassword, setAppPassword] = useState(() => {
+    let p = (localStorage.getItem('sheetSync_gmailAppPassword') || localStorage.getItem('sheetSync_smtpPass') || '').replace(/\s+/g, '');
+    if (!p || p === 'akqltiacqtgtptsw') {
+      p = 'bixwjrotqbhdelun';
+      try { localStorage.setItem('sheetSync_smtpPass', p); } catch {}
+    }
+    return p;
+  });
   const [sendingEmails, setSendingEmails] = useState<Record<string, boolean>>({});
   const [mailError, setMailError] = useState<string | null>(null);
 
@@ -211,13 +225,13 @@ export const BatchMailer: React.FC<BatchMailerProps> = ({ data }) => {
             Browser security rules restrict web applications from attaching files to Gmail automatically.
             When your Gmail compose tab opens, please <strong>manually attach</strong> the resume file: 
             <code style={{ marginLeft: '0.35rem', color: '#fbbf24', background: 'rgba(245, 158, 11, 0.1)', fontSize: '0.8rem' }}>
-              Utkarsh_Gupta.pdf
+              Cheshta_Verma.pdf
             </code>.
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
             <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Resume Link:</span>
             <a 
-              href="/Utkarsh_Gupta.pdf" 
+              href="/Cheshta_Verma.pdf" 
               target="_blank" 
               rel="noreferrer" 
               className="filter-badge"
@@ -246,7 +260,7 @@ export const BatchMailer: React.FC<BatchMailerProps> = ({ data }) => {
             <label className="modal-label">Gmail Address</label>
             <input 
               type="email" 
-              placeholder="e.g. gutkarsh191@gmail.com" 
+              placeholder="e.g. kmcheshtamzn@gmail.com" 
               value={gmailAddress}
               onChange={(e) => handleSaveCredentials(e.target.value, appPassword)}
               className="search-input"

@@ -39,8 +39,22 @@ interface GmailDraftsManagerProps {
 }
 
 export const GmailDraftsManager: React.FC<GmailDraftsManagerProps> = ({ initialFolder = 'drafts' }) => {
-  const [smtpUser, setSmtpUser] = useState(() => localStorage.getItem('sheetSync_smtpUser') || 'gutkarsh191@gmail.com');
-  const [smtpPass, setSmtpPass] = useState(() => (localStorage.getItem('sheetSync_smtpPass') || 'akqltiacqtgtptsw').replace(/\s+/g, ''));
+  const [smtpUser, setSmtpUser] = useState(() => {
+    const saved = (localStorage.getItem('sheetSync_smtpUser') || '').trim();
+    if (!saved || saved === 'gutkarsh191@gmail.com' || saved.toLowerCase().includes('utkarsh')) {
+      localStorage.setItem('sheetSync_smtpUser', 'kmcheshtamzn@gmail.com');
+      return 'kmcheshtamzn@gmail.com';
+    }
+    return saved;
+  });
+  const [smtpPass, setSmtpPass] = useState(() => {
+    let p = (localStorage.getItem('sheetSync_smtpPass') || '').replace(/\s+/g, '');
+    if (!p || p === 'akqltiacqtgtptsw') {
+      p = 'bixwjrotqbhdelun';
+      try { localStorage.setItem('sheetSync_smtpPass', p); } catch {}
+    }
+    return p;
+  });
   
   const [drafts, setDrafts] = useState<GmailDraft[]>([]);
   const [loading, setLoading] = useState(false);
@@ -420,8 +434,8 @@ export const GmailDraftsManager: React.FC<GmailDraftsManagerProps> = ({ initialF
               </h2>
               <p className="upload-hint" style={{ marginBottom: 0 }}>
                 {currentFolder === 'sent'
-                  ? <>Fetch recruiter emails sent <b>1 day ago (Yesterday)</b> from <b>{smtpUser || 'gutkarsh191@gmail.com'}</b> for Follow-Up outreach.</>
-                  : <>Fetch and extract recipient email addresses from unsent drafts in <b>{smtpUser || 'gutkarsh191@gmail.com'}</b>.</>}
+                  ? <>Fetch recruiter emails sent <b>1 day ago (Yesterday)</b> from <b>{smtpUser || 'kmcheshtamzn@gmail.com'}</b> for Follow-Up outreach.</>
+                  : <>Fetch and extract recipient email addresses from unsent drafts in <b>{smtpUser || 'kmcheshtamzn@gmail.com'}</b>.</>}
               </p>
             </div>
           </div>

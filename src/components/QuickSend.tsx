@@ -17,8 +17,22 @@ export const QuickSend: React.FC<QuickSendProps> = () => {
   const [subject, setSubject] = useState(ROLE_TEMPLATES[0].subject);
   const [message, setMessage] = useState(ROLE_TEMPLATES[0].body);
 
-  const [smtpUser, setSmtpUser] = useState(() => localStorage.getItem('sheetSync_smtpUser') || 'gutkarsh191@gmail.com');
-  const [smtpPass, setSmtpPass] = useState(() => (localStorage.getItem('sheetSync_smtpPass') || 'akqltiacqtgtptsw').replace(/\s+/g, ''));
+  const [smtpUser, setSmtpUser] = useState(() => {
+    const saved = (localStorage.getItem('sheetSync_smtpUser') || '').trim();
+    if (!saved || saved === 'gutkarsh191@gmail.com' || saved.toLowerCase().includes('utkarsh')) {
+      localStorage.setItem('sheetSync_smtpUser', 'kmcheshtamzn@gmail.com');
+      return 'kmcheshtamzn@gmail.com';
+    }
+    return saved;
+  });
+  const [smtpPass, setSmtpPass] = useState(() => {
+    let p = (localStorage.getItem('sheetSync_smtpPass') || '').replace(/\s+/g, '');
+    if (!p || p === 'akqltiacqtgtptsw') {
+      p = 'bixwjrotqbhdelun';
+      try { localStorage.setItem('sheetSync_smtpPass', p); } catch {}
+    }
+    return p;
+  });
   
   // API Server Configuration & Diagnostics
   const [serverUrlInput, setServerUrlInput] = useState(() => getApiBase());
@@ -93,7 +107,7 @@ export const QuickSend: React.FC<QuickSendProps> = () => {
           subject: subject.trim(),
           body: message.trim(),
           roleType: selectedRole,
-          resumeFileName: 'Utkarsh_Gupta.pdf'
+          resumeFileName: 'Cheshta_Verma.pdf'
         })
       });
 
@@ -373,7 +387,7 @@ export const QuickSend: React.FC<QuickSendProps> = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Paperclip size={16} style={{ color: '#10b981' }} />
               <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#10b981' }}>
-                Utkarsh_Gupta.pdf
+                Cheshta_Verma.pdf
               </span>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                 (Attached automatically by server mailer)

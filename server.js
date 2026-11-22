@@ -34,21 +34,26 @@ app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 // ─────────────────────────────────────────────────────────────
 // Two resumes: one per role. roleType decides which file is used everywhere.
 const RESUME_FILES = {
-  backend: 'Utkarsh_Gupta.pdf',
-  ai: 'Utkarsh_Gupta.pdf',
-  python: 'Utkarsh_Python_Developer.pdf',
-  fullstack: 'Utkarsh_Gupta.pdf',
-  frontend: 'Utkarsh_Gupta.pdf',
+  qa: 'Cheshta_Verma.pdf',
+  ai: 'Cheshta_Verma.pdf',
+  ai_qa: 'Cheshta_Verma.pdf',
+  api: 'Cheshta_Verma.pdf',
+  api_sdet: 'Cheshta_Verma.pdf',
+  manual: 'Cheshta_Verma.pdf',
+  manual_qa: 'Cheshta_Verma.pdf',
+  backend: 'Cheshta_Verma.pdf',
+  python: 'Cheshta_Verma_QA.pdf',
+  default: 'Cheshta_Verma.pdf',
 };
 const resumeRole = (roleType) => {
   const r = String(roleType || '').toLowerCase();
   if (r.includes('ai') || r.includes('llm') || r.includes('genai')) return 'ai';
-  if (r.includes('python')) return 'backend';
-  return 'backend';
+  if (r.includes('api') || r.includes('sdet')) return 'api';
+  return 'qa';
 };
 
 const resumeInfoFor = (role) => {
-  const fileName = RESUME_FILES[role] || 'Utkarsh_Gupta.pdf';
+  const fileName = RESUME_FILES[role] || 'Cheshta_Verma.pdf';
   const resumePath = path.join(__dirname, 'public', fileName);
   if (!fs.existsSync(resumePath)) return { role, exists: false, fileName };
   const stats = fs.statSync(resumePath);
@@ -57,7 +62,14 @@ const resumeInfoFor = (role) => {
 
 // Resumes list (used by Resume Manager)
 app.get('/api/resumes', (_req, res) => {
-  res.json({ success: true, resumes: [resumeInfoFor('backend'), resumeInfoFor('ai')] });
+  res.json({
+    success: true,
+    resumes: [
+      { ...resumeInfoFor('ai'), role: 'ai' },
+      { ...resumeInfoFor('backend'), role: 'backend' },
+      { ...resumeInfoFor('qa'), role: 'qa' }
+    ]
+  });
 });
 
 // Single resume (kept for older UI)
@@ -83,10 +95,10 @@ app.post('/api/upload-resume', (req, res) => {
     if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true });
 
     const role = resumeRole(roleType);
-    const targetFileName = RESUME_FILES[role];
+    const targetFileName = RESUME_FILES[role] || 'Cheshta_Verma.pdf';
     fs.writeFileSync(path.join(publicDir, targetFileName), buffer);
 
-    const roleTitle = role === 'ai' ? 'Backend & AI' : 'Python Backend';
+    const roleTitle = role === 'ai' ? 'AI / GenAI QA' : 'QA Engineer (Manual & API)';
     return res.json({ success: true, message: `${roleTitle} resume updated`, ...resumeInfoFor(role) });
   } catch (err) {
     console.error('Error saving updated resume:', err);
@@ -120,7 +132,7 @@ const CURATED_COMPANIES = [
   { name: 'Nykaa', domain: 'nykaa.com', platform: 'Naukri.com', url: 'https://www.naukri.com/nykaa-jobs', hrEmail: 'tech-hiring@nykaa.com', candidateEmails: ['tech-hiring@nykaa.com'] },
 ];
 
-function generateCuratedLeads(pos = 'Backend & AI Engineer', selectedPlatforms = []) {
+function generateCuratedLeads(pos = 'QA Engineer (Manual & API Testing)', selectedPlatforms = []) {
   const platFilter = (selectedPlatforms && selectedPlatforms.length > 0)
     ? selectedPlatforms.map(p => p.toLowerCase().replace(/[^a-z]/g, ''))
     : [];
@@ -159,7 +171,7 @@ function generateCuratedLeads(pos = 'Backend & AI Engineer', selectedPlatforms =
 // ─────────────────────────────────────────────────────────────
 // Dynamic Live Job Feed: Fetches active jobs across tech companies without requiring API keys
 // ─────────────────────────────────────────────────────────────
-async function fetchLiveJobFeed(pos = 'Backend & AI Engineer') {
+async function fetchLiveJobFeed(pos = 'QA Engineer (Manual & API Testing)') {
   try {
     const cleanQuery = encodeURIComponent(pos.replace(/[^a-zA-Z0-9 ]/g, '').trim() || 'backend');
     const resp = await fetch(`https://www.arbeitnow.com/api/job-board-api?search=${cleanQuery}`, {
@@ -246,7 +258,7 @@ const geminiModelDiscoveryCache = new Map();
 // ─────────────────────────────────────────────────────────────
 app.post('/api/ai-hunt', async (req, res) => {
   const { position, platforms, exaApiKey, geminiApiKey, excludeCompanies = [], excludeEmails = [] } = req.body;
-  const pos = (position || 'Backend & AI Engineer').trim();
+  const pos = (position || 'QA Engineer (Manual & API Testing)').trim();
   const cleanGeminiKey = (geminiApiKey || '').trim();
   const cleanExaKey = (exaApiKey || '').trim();
 
@@ -268,15 +280,15 @@ app.post('/api/ai-hunt', async (req, res) => {
 
       const prompt = `You are an elite Technical Headhunter and OSINT Recruitment Research Engine.
 
-Find 10 ACTIVE job openings for ${pos} across ${targetPlatforms} in Noida, Greater Noida, Delhi NCR, Bangalore, or Remote India.
+Find 10 ACTIVE job openings for ${pos} (specifically QA Engineer, SDET Manual & API, QA Analyst, AI/GenAI QA, Automation Test Engineer) across ${targetPlatforms} in Gurugram, Noida, Delhi NCR, Bangalore, or Remote India.
 
 STRICT RULES:
-1. Find only currently active jobs with genuine application URLs.
+1. Find only currently active jobs with genuine application URLs matching a QA Engineer with 3+ years experience in Manual Testing, REST API Testing (Postman), SQL verification, and AI/GenAI/LLM testing.
 2. Every lead must belong to a UNIQUE company. Never repeat companies within this batch or previous batches.
 3. Never repeat email IDs, company domains, or previously provided leads. Apply ${exclusionGuardrails} as a strict exclusion list.
 4. Provide genuine, publicly published contact emails. Search for:
-   • The named Technical Recruiter, Talent Acquisition Partner, or Engineering Lead's work email
-   • The specific engineering/AI hiring inbox (e.g. tech-hiring@company.com, ai-talent@company.com)
+   • The named Technical Recruiter, Talent Acquisition Partner, or QA Lead / Engineering Manager's work email
+   • The specific engineering/QA hiring inbox (e.g. tech-hiring@company.com, qa-jobs@company.com)
    • Or the company's verified hiring inbox (e.g. careers@company.com, talent@company.com, jobs@company.com)
 5. NEVER leave hrEmail empty or null. Every single job MUST have a valid, deliverable contact email.
 6. In candidateEmails, list all authentic email options discovered for reaching recruiters at this company.
@@ -292,9 +304,9 @@ Return ONLY a valid raw JSON array, no markdown or explanations:
     "company": "Company Name",
     "companyDomain": "company.com",
     "platform": "LinkedIn",
-    "location": "Noida/Delhi NCR/Bangalore/Remote India/Gurgaon/Mumbai/Pune/Banglore/Greater Noida/hyderabad",
+    "location": "Gurugram/Noida/Delhi NCR/Remote India",
     "url": "https://...",
-    "hrName": "Recruiter Name or Hiring Lead",
+    "hrName": "Recruiter Name or QA Lead",
     "hrEmail": "genuine.work.email@company.com",
     "candidateEmails": ["genuine.work.email@company.com", "careers@company.com"],
     "isGuessed": false
@@ -815,8 +827,8 @@ const blockedIn = (to) =>
 app.post('/api/send-email', async (req, res) => {
   const { smtpUser, smtpPass, to, subject, body, roleType, attachResume = true } = req.body;
 
-  const user = (smtpUser || process.env.SMTP_USER || 'gutkarsh191@gmail.com').trim();
-  const pass = (smtpPass || process.env.SMTP_PASS || 'akqltiacqtgtptsw').trim().replace(/\s+/g, '');
+  const user = (smtpUser || process.env.SMTP_USER || 'kmcheshtamzn@gmail.com').trim();
+  const pass = (smtpPass || process.env.SMTP_PASS || 'bixwjrotqbhdelun').trim().replace(/\s+/g, '');
 
   if (!user || !pass || !to || !subject || !body) {
     return res.status(400).json({
@@ -857,7 +869,7 @@ app.post('/api/send-email', async (req, res) => {
 
   try {
     const info = await transporter.sendMail({
-      from: `"Utkarsh Gupta" <${user}>`,
+      from: `"Cheshta Verma" <${user}>`,
       to,
       subject,
       text: body,
@@ -875,8 +887,8 @@ app.post('/api/send-email', async (req, res) => {
 app.post('/api/fetch-drafts', (req, res) => {
   const { smtpUser, smtpPass, folderType, sinceDays } = req.body;
 
-  const user = (smtpUser || process.env.SMTP_USER || 'gutkarsh191@gmail.com').trim();
-  const pass = (smtpPass || process.env.SMTP_PASS || 'akqltiacqtgtptsw').trim().replace(/\s+/g, '');
+  const user = (smtpUser || process.env.SMTP_USER || 'kmcheshtamzn@gmail.com').trim();
+  const pass = (smtpPass || process.env.SMTP_PASS || 'bixwjrotqbhdelun').trim().replace(/\s+/g, '');
 
   if (!user || !pass) {
     return res.status(400).json({
@@ -1057,8 +1069,8 @@ app.post('/api/fetch-drafts', (req, res) => {
 app.get('/api/search-jobs', async (req, res) => {
   const { query, location, apiKey, timeframe, source, adzunaId, adzunaKey } = req.query;
 
-  const searchQuery = query || 'Python Developer';
-  const searchLocation = location || 'India';
+  const searchQuery = query || 'QA Engineer';
+  const searchLocation = location || 'Gurugram, India';
   const tf = timeframe || '2d';
   const src = source || 'adzuna';
 
@@ -1277,123 +1289,83 @@ app.get('/api/search-jobs', async (req, res) => {
     const mockJobs = [
       {
         id: 'mock-1',
-        title: 'Backend & AI Engineer (Python / FastAPI)',
+        title: 'QA Engineer (Manual & API Testing)',
         company: 'Razorpay',
-        location: 'Bengaluru, Karnataka (Hybrid)',
-        description: 'Looking for a Backend & AI Engineer with 3+ years experience in Python, FastAPI, PostgreSQL, Redis, and LLM integrations (LangChain, OpenAI) to build high-scale payment APIs.',
+        location: 'Gurugram / Bengaluru (Hybrid)',
+        description: 'Seeking a QA Engineer with 3+ years experience in REST API validation using Postman, SQL verification, regression test execution, and Agile sprint release cycles.',
         url: 'https://razorpay.com/jobs',
         created: new Date().toISOString(),
         source: 'Mock (Razorpay)'
       },
       {
         id: 'mock-2',
-        title: 'Python Backend Developer',
+        title: 'SDET (Manual & API Testing)',
         company: 'Paytm',
-        location: 'Noida, Uttar Pradesh',
-        description: 'Join the core payment gateway & transaction engine team. Strong expertise in Python, Django, FastAPI, Celery, Redis caching, and PostgreSQL high-throughput queries required.',
+        location: 'Noida / Gurugram, NCR',
+        description: 'Join the payment QA team. Strong expertise in functional testing, Postman API validation, boundary/negative testing, JIRA defect management, and database testing.',
         url: 'https://paytm.com/careers',
         created: new Date(Date.now() - 86400000).toISOString(),
         source: 'Mock (Paytm)'
       },
       {
         id: 'mock-3',
-        title: 'Generative AI & LLM Engineer',
+        title: 'AI / GenAI QA Engineer',
         company: 'Cred',
-        location: 'Bengaluru, Karnataka',
-        description: 'Design and deploy production-grade RAG systems, AI agents, and LLM pipelines using LangChain, LlamaIndex, Vector DBs (Chroma/Pinecone), and AWS Bedrock.',
+        location: 'Bengaluru / Remote',
+        description: 'Validate LLM-generated Q&A outputs, RAG pipelines, prompt response accuracy, hallucination detection, and document parsing consistency for financial AI agents.',
         url: 'https://cred.club/careers',
         created: new Date(Date.now() - 172800000).toISOString(),
         source: 'Mock (Cred)'
       },
       {
         id: 'mock-4',
-        title: 'Software Engineer - Backend & Cloud',
+        title: 'Software Test Engineer - Web & API',
         company: 'PhonePe',
-        location: 'Bengaluru, India',
-        description: 'Design distributed microservices in Python (FastAPI/Flask) backed by Kafka, Redis, Docker, and AWS. Focus on low-latency payment processing and API resilience.',
+        location: 'Bengaluru / Gurugram',
+        description: 'Design and execute comprehensive test plans across web & mobile platforms. Deep expertise in Postman API testing, HTTP status codes, JSON validation, and SQL reconciliation.',
         url: 'https://phonepe.com/careers',
         created: new Date(Date.now() - 259200000).toISOString(),
         source: 'Mock (PhonePe)'
       },
       {
         id: 'mock-5',
-        title: 'Python Developer (FastAPI / Microservices)',
+        title: 'QA Engineer (API & Database Validation)',
         company: 'Groww',
         location: 'Bengaluru, Karnataka',
-        description: 'Build robust investment microservices using Python 3.11, FastAPI, SQLModel/PostgreSQL, Redis, and Docker. 3-5 years backend engineering experience required.',
+        description: 'Own test execution across investment microservices. Strong experience with Postman, SQL queries, boundary/negative scenarios, and cross-browser testing.',
         url: 'https://groww.in/careers',
         created: new Date(Date.now() - 345600000).toISOString(),
         source: 'Mock (Groww)'
       },
       {
         id: 'mock-6',
-        title: 'Backend Engineer (Python / High-Throughput APIs)',
+        title: 'Senior QA Engineer (Manual & Mobile Testing)',
         company: 'Zerodha',
         location: 'Bengaluru, India',
-        description: 'Build ultra-low latency REST & WebSocket APIs for trading engines. Strong proficiency in Python, PostgreSQL indexing, Redis caching, and async I/O (asyncio, FastAPI).',
+        description: 'Validate low-latency trading interfaces, mobile app stability, edge cases, regression suites, and JIRA defect life cycle management with zero critical defect escapes.',
         url: 'https://zerodha.com/careers',
         created: new Date(Date.now() - 432000000).toISOString(),
         source: 'Mock (Zerodha)'
       },
       {
         id: 'mock-7',
-        title: 'AI / Backend Engineer (FastAPI & LangChain)',
+        title: 'AI Application QA Analyst',
         company: 'Jupiter Money',
-        location: 'Bengaluru / Mumbai',
-        description: 'Integrate conversational GenAI banking bots, document QA systems using RAG, and core banking microservices with Python, FastAPI, and AWS Lambda.',
+        location: 'Mumbai / Gurugram',
+        description: 'Test conversational GenAI banking bots, document extraction (PAN/GSTIN), RAG response consistency, and core banking API integrations.',
         url: 'https://jupiter.money/careers',
         created: new Date(Date.now() - 518400000).toISOString(),
         source: 'Mock (Jupiter)'
       },
       {
         id: 'mock-8',
-        title: 'Python Backend Developer (AWS & Microservices)',
+        title: 'QA Engineer (REST APIs & Functional Testing)',
         company: 'BharatPe',
         location: 'Gurugram / Delhi NCR',
-        description: 'Architect merchant settlement services with Python, Django/FastAPI, AWS ECS, Celery workers, and PostgreSQL. Experience handling high transaction volumes.',
+        description: 'Execute end-to-end testing for merchant settlement workflows. Expertise in Postman API collections, payload validation, SQL database checks, and release validation.',
         url: 'https://bharatpe.com/careers',
         created: new Date(Date.now() - 604800000).toISOString(),
         source: 'Mock (BharatPe)'
-      },
-      {
-        id: 'mock-9',
-        title: 'Senior Python Engineer',
-        company: 'InMobi',
-        location: 'Bengaluru, India',
-        description: 'Lead distributed data ingestion and real-time ad serving microservices using Python, FastAPI, Kafka, and Redis. Solid understanding of system design and scale.',
-        url: 'https://inmobi.com/careers',
-        created: new Date(Date.now() - 691200000).toISOString(),
-        source: 'Mock (InMobi)'
-      },
-      {
-        id: 'mock-10',
-        title: 'Python Backend & AI Developer',
-        company: 'Techpile',
-        location: 'Noida / Remote',
-        description: 'Develop intelligent backend APIs, RAG pipelines, and automated business workflows using Python, FastAPI, LangChain, and PostgreSQL.',
-        url: 'https://techpile.in/careers',
-        created: new Date(Date.now() - 777600000).toISOString(),
-        source: 'Mock (Techpile)'
-      },
-      {
-        id: 'mock-11',
-        title: 'FastAPI Backend Developer',
-        company: 'Skience',
-        location: 'Noida, Uttar Pradesh',
-        description: 'Build enterprise fintech integrations and RESTful APIs using Python, FastAPI, SQLAlchemy, and Docker. Strong understanding of relational databases and OAuth2.',
-        url: 'https://skience.com/careers',
-        created: new Date(Date.now() - 864000000).toISOString(),
-        source: 'Mock (Skience)'
-      },
-      {
-        id: 'mock-12',
-        title: 'Backend Developer (Python / Cloud)',
-        company: 'Plutos One',
-        location: 'New Delhi, India',
-        description: 'Responsible for core payment gateway adapters, bill payment microservices, and third-party bank API integrations with Python, FastAPI, and AWS.',
-        url: 'https://plutosone.com/careers',
-        created: new Date(Date.now() - 950400000).toISOString(),
-        source: 'Mock (Plutos One)'
       }
     ];
 
@@ -1424,7 +1396,7 @@ app.get('/api/agent/run', (req, res) => {
         url: 'https://razorpay.com',
         email: 'tech-hiring@razorpay.com',
         recruiter: 'Aditya Sharma',
-        designation: 'Lead Technical Recruiter (Backend & AI)'
+        designation: 'Lead Technical Recruiter (QA & Testing)'
       },
       {
         company: 'Paytm',
@@ -1438,7 +1410,7 @@ app.get('/api/agent/run', (req, res) => {
         url: 'https://cred.club',
         email: 'tech-talent@cred.club',
         recruiter: 'Megha Malhotra',
-        designation: 'Talent Acquisition Partner (AI & Infrastructure)'
+        designation: 'Talent Acquisition Partner (AI & QA)'
       },
       {
         company: 'PhonePe',
@@ -1452,7 +1424,7 @@ app.get('/api/agent/run', (req, res) => {
         url: 'https://groww.in',
         email: 'tech-recruitment@groww.in',
         recruiter: 'Siddharth Roy',
-        designation: 'Technical Recruiter (Backend Engineering)'
+        designation: 'Technical Recruiter (Quality Engineering)'
       },
       {
         company: 'Zerodha',
@@ -1466,7 +1438,7 @@ app.get('/api/agent/run', (req, res) => {
         url: 'https://jupiter.money',
         email: 'talent@jupiter.money',
         recruiter: 'Aishwarya Nair',
-        designation: 'Talent Acquisition Lead (AI & Backend)'
+        designation: 'Talent Acquisition Lead (QA & Testing)'
       },
       {
         company: 'BharatPe',
@@ -1483,6 +1455,18 @@ app.get('/api/agent/run', (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 });
+
+// Serve frontend dist for production deployments and SPA routing
+const distPath = path.join(__dirname, 'dist');
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+  app.use((req, res, next) => {
+    if (req.method === 'GET' && !req.path.startsWith('/api')) {
+      return res.sendFile(path.join(distPath, 'index.html'));
+    }
+    next();
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`SheetSync backend running on port ${PORT}`);

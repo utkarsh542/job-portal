@@ -1,178 +1,182 @@
 // src/templates.ts
 
 export interface RoleTemplate {
-  id: 'ai' | 'backend' | 'genai' | 'python' | 'fullstack' | 'frontend';
+  id: 'qa' | 'ai_qa' | 'api_sdet' | 'manual_qa';
   label: string;
   badge: string;
   subject: string;
   body: string;
 }
 
-export const BACKEND_AI_TEMPLATE = {
-  subject: 'Application for Backend & AI Engineer | 4+ Years Exp | Python, FastAPI, LLMs, AWS',
+export const QA_ENGINEER_TEMPLATE = {
+  subject: 'Application for QA Engineer / SDET (Manual & API Testing) | Cheshta Verma (3+ Yrs Exp)',
   body: `Dear Hiring Team,
 
-I am writing to express my strong interest in Backend & AI Engineer opportunities at your organization.
+I am writing to express my strong interest in QA Engineer / Software Test Engineer opportunities at your organization.
 
-I bring 4+ years of experience engineering production-grade backend systems and GenAI applications for enterprise clients including PwC and Aditya Birla Group. My core expertise centers on Python, FastAPI, microservices, cloud-native deployments on AWS and Azure, and building end-to-end LLM/GenAI pipelines.
+I bring 3+ years of hands-on experience in Manual Software Testing, Web & Mobile Testing, REST API Testing, and AI/GenAI application testing. Currently deployed at PwC India (via Aerolex Labs) on the Navigate Tax Hub enterprise platform, I specialize in end-to-end quality assurance across functional, regression, smoke, sanity, integration, UAT, and API testing.
 
 Key Highlights of my experience:
-• GenAI & LLM Pipelines: Built production GenAI pipelines using OpenAI, Azure OpenAI, AWS Bedrock, and LangChain for document Q&A, summarization, and risk prediction at PwC (processing 500+ tax documents/month) with OCR integration (Tesseract, Docling, AWS Textract) and vector databases.
-• High-Scale Fintech & API Integrations: Developed and maintained mission-critical third-party financial API integrations (Razorpay, Digio, Tartan) for Aditya Birla Group serving a 10M+ customer base; reduced integration failure rate by ~30% via robust retry and error-handling layers.
-• Scalable Serverless & Microservices: Architected FastAPI + PostgreSQL backend on AWS Lambda (serverless), reducing infrastructure costs by ~35% vs EC2, and implemented Redis caching layers improving API response times by ~60%.
-• Asynchronous Architecture & SRE: Designed distributed message architectures with AWS SNS+SQS (50K+ msgs/day) and Celery+Redis task queues; drove SRE best practices maintaining 99.5%+ service availability.
+• Comprehensive QA & Test Execution: Executed 5,000+ test cases across complex web and mobile enterprise workflows with complete RTM traceability; tracked and managed 500+ defects through JIRA with detailed reproduction steps and root-cause analysis (zero critical defect escapes in production).
+• REST API Testing & Data Validation: Conducted thorough API testing using Postman (HTTP status codes, request/response payload validation, JSON schema validation, CRUD operations, auth/RBAC testing, and negative edge cases) with SQL-based backend data reconciliation.
+• AI & GenAI Application Testing: Spearheaded end-to-end testing of LLM-powered enterprise modules at PwC India — validating LLM-generated Q&A for accuracy, source traceability, hallucination detection, prompt testing, and RAG response validation.
+• Enterprise Agile Collaboration: Actively participate in Sprint ceremonies, test planning, daily QA logs, release validation, and cross-functional triage using JIRA, Zephyr, TestRail, and Azure DevOps.
 
-I would be thrilled to bring my experience in Python backend microservices and GenAI systems to your engineering team.
-
-Please find my resume attached for your consideration.
-
-Thank you for your time and consideration.
-
-Best regards,
-Utkarsh Gupta
-Backend & AI Engineer | Python · FastAPI · LLMs · AWS
-+91 8840143567
-gutkarsh191@gmail.com
-LinkedIn | GitHub`
-};
-
-export const PYTHON_BACKEND_TEMPLATE = {
-  subject: 'Application for Python Backend Developer / FastAPI Engineer | 4+ Years Experience',
-  body: `Dear Hiring Team,
-
-I am writing to express my interest in Python Backend Developer / Senior Backend Engineer roles at your organization.
-
-With 4+ years of experience designing and scaling production backend systems for enterprise clients including PwC and Aditya Birla Group, I specialize in Python, FastAPI, Django, PostgreSQL, Redis, microservices, and serverless cloud architectures (AWS Lambda, Azure Functions).
-
-Key Highlights:
-• Scalable APIs & Microservices: Built 15+ secure RESTful APIs using FastAPI and Django; optimized ORM queries (SQLAlchemy, Django ORM) to reduce database load by 20% on high-traffic endpoints.
-• Financial & Third-Party Integrations: Integrated payment gateways, PAN verification, and E-mandates (Razorpay, Digio, Tartan) for Aditya Birla Group's 10M+ customer base with strict compliance (OAuth, JWT, field-level encryption).
-• Serverless & Performance: Deployed FastAPI backends on AWS Lambda, cutting infrastructure costs by 35% and cutting deployment times from 2 hours to under 15 minutes via automated CI/CD pipelines (Azure DevOps, GitHub Actions).
-• Async Processing: Built background processing pipelines with Celery + Redis and AWS SNS/SQS handling 50,000+ daily messages with guaranteed delivery.
-
-My resume is attached for your review. I would welcome the opportunity to discuss how my backend engineering experience aligns with your team's needs.
-
-Thank you for your time and consideration.
-
-Best regards,
-Utkarsh Gupta
-Backend & AI Engineer | Python · FastAPI · Microservices
-+91 8840143567
-gutkarsh191@gmail.com
-LinkedIn | GitHub`
-};
-
-export const GENAI_LLM_TEMPLATE = {
-  subject: 'Application for Generative AI & LLM Engineer | LangChain, RAG, Bedrock, OpenAI | 4+ Yrs Exp',
-  body: `Dear Hiring Team,
-
-I am writing to express my interest in GenAI / LLM Engineer opportunities at your organization.
-
-I am a Backend & AI Engineer with 4+ years of experience specializing in building production GenAI pipelines, RAG systems, and intelligent document processing systems integrated with Python/FastAPI backends on AWS and Azure.
-
-Key AI/GenAI Highlights:
-• GenAI Pipelines: Built and deployed enterprise GenAI pipelines using LangChain, OpenAI APIs, Azure OpenAI, and AWS Bedrock for intelligent document Q&A, summarization, and risk prediction at PwC.
-• Document AI & OCR: Engineered multi-format extraction pipelines processing PDF, Excel, and scanned documents via OCR (Tesseract, Docling OCR, AWS Textract) and vector databases (ChromaDB) with LLM-as-Judge evaluation.
-• Production Serving: Wrapped LLM orchestration in high-performance FastAPI serverless services on AWS Lambda, achieving 60% faster response times via Redis semantic/data caching.
-• Anthropic Certified: Certified in AI Fluency (Foundations of LLMs, prompt engineering, responsible AI, and practical Claude API usage).
-
-Please find my resume attached. I would be eager to discuss how I can contribute to your GenAI initiatives.
-
-Thank you for your time and consideration.
-
-Best regards,
-Utkarsh Gupta
-Backend & AI Engineer | LLMs · LangChain · AWS Bedrock
-+91 8840143567
-gutkarsh191@gmail.com
-LinkedIn | GitHub`
-};
-
-export const CLOUD_BACKEND_TEMPLATE = {
-  subject: 'Application for Cloud & Microservices Backend Engineer | Python, AWS Lambda, Docker | 4+ Yrs Exp',
-  body: `Dear Hiring Team,
-
-I am writing to express my interest in Cloud / Microservices Backend Engineer opportunities at your organization.
-
-With 4+ years of production experience across AWS and Azure, I specialize in architecting cloud-native Python/FastAPI microservices, serverless deployments (AWS Lambda, Azure Functions), and asynchronous distributed architectures.
-
-Enterprise Cloud Highlights:
-• Scaled serverless FastAPI + PostgreSQL on AWS Lambda, cutting infrastructure costs by ~35% vs EC2.
-• Built distributed asynchronous email & task processing via AWS SNS + SQS (50,000+ msgs/day) and Celery + Redis.
-• Automated CI/CD pipelines via Azure DevOps and GitHub Actions, cutting deployment cycles from 2 hours to under 15 minutes.
-• Drove SRE practices (error budgets, alerting, runbooks) maintaining 99.5%+ service availability across enterprise clients including PwC and Aditya Birla Group.
+I would welcome the opportunity to discuss how my QA experience, attention to detail, and API/AI testing skills can add value to your engineering and QA teams.
 
 Please find my resume attached for your consideration.
 
 Thank you for your time and consideration.
 
 Best regards,
-Utkarsh Gupta
-Backend & AI Engineer | Python · AWS · Serverless · SRE
-+91 8840143567
-gutkarsh191@gmail.com
-LinkedIn | GitHub`
+Cheshta Verma
+QA Engineer | SDET (Manual & API) | AI / GenAI QA
++91 7037563327
+kmcheshtamzn@gmail.com
+Gurugram, India | linkedin.com/in/cheshta`
+};
+
+export const AI_GENAI_QA_TEMPLATE = {
+  subject: 'Application for AI / GenAI QA Engineer | LLM Testing, RAG Validation, Hallucination Detection | Cheshta Verma',
+  body: `Dear Hiring Team,
+
+I am writing to express my interest in AI / GenAI QA Engineer and Quality Assurance opportunities at your organization.
+
+I am a QA Engineer with 3+ years of experience specializing in testing AI/GenAI applications, LLM orchestration pipelines, and enterprise software at PwC India (via Aerolex Labs) on the Navigate Tax Hub platform.
+
+Key AI/GenAI QA Highlights:
+• LLM & RAG Response Validation: Tested LLM-generated Q&A responses for factual accuracy, relevance, hallucinations, source traceability, and model edge cases across enterprise tax and financial document workflows.
+• Document AI & Summarization: Validated AI-generated document summaries, bulk document upload parsing (PAN, GSTIN, invoice extraction), file validation, and error-handling mechanisms.
+• NLP Engine Testing: Tested NLP classification engines mapping complex product/service descriptions against regulatory codes, validating misclassifications, null outputs, and response-time SLAs.
+• API & Functional Quality: Validated backend APIs via Postman, verified database consistency using SQL, and maintained rigorous test coverage and RTM logs in JIRA.
+
+My resume is attached for your review. I would be eager to discuss how my AI testing expertise can help ensure the reliability and safety of your GenAI products.
+
+Thank you for your time and consideration.
+
+Best regards,
+Cheshta Verma
+QA Engineer | AI / GenAI QA | LLM Testing & RAG Validation
++91 7037563327
+kmcheshtamzn@gmail.com
+Gurugram, India | linkedin.com/in/cheshta`
+};
+
+export const API_SDET_TEMPLATE = {
+  subject: 'Application for API Test Engineer / SDET (Manual & API) | Postman, REST APIs, SQL | Cheshta Verma',
+  body: `Dear Hiring Team,
+
+I am writing to express my interest in API Test Engineer / QA Engineer (Manual & API) opportunities at your organization.
+
+With 3+ years of testing experience on enterprise web and mobile applications at PwC India (via Aerolex Labs), I possess deep expertise in REST API validation, database verification with SQL, and defect lifecycle management.
+
+Technical Testing Highlights:
+• REST API Testing: Expert in Postman for API request/response validation, schema validation, HTTP status verification, authentication/authorization (RBAC), and boundary/negative test suites.
+• Database Verification: Wrote complex SQL queries to validate UI-to-backend data integrity and reconcile transaction records.
+• Defect Management & Tracking: Logged, prioritized, and tracked 500+ defects in JIRA with comprehensive reproduction steps, evidence, and severity classification.
+• Tools & Methodologies: Proficient with Postman, JIRA, SQL, Chrome DevTools, Bruno, Zephyr, TestRail, Git, and Azure DevOps, with basic exposure to Python scripting and JMeter.
+
+Please find my resume attached. I would appreciate the opportunity to discuss how I can contribute to your team's quality standards.
+
+Thank you for your time and consideration.
+
+Best regards,
+Cheshta Verma
+QA Engineer | SDET (Manual & API) | REST APIs · Postman · SQL
++91 7037563327
+kmcheshtamzn@gmail.com
+Gurugram, India | linkedin.com/in/cheshta`
+};
+
+export const MANUAL_QA_TEMPLATE = {
+  subject: 'Application for QA Engineer / Manual Test Engineer | Web, Mobile, JIRA | Cheshta Verma (3+ Yrs Exp)',
+  body: `Dear Hiring Team,
+
+I am writing to express my interest in QA Engineer / Manual Software Testing roles at your organization.
+
+I have 3+ years of experience in manual software testing across Web and Mobile applications, currently deployed at PwC India (via Aerolex Labs) on an enterprise Tax Hub platform. I have a thorough understanding of SDLC, STLC, test scenario design, test case execution, and defect reporting.
+
+Core Testing Highlights:
+• Test Execution & Coverage: Designed and executed functional, regression, smoke, sanity, integration, system, UI, cross-browser, and UAT test cases (5,000+ test cases executed).
+• Defect Tracking & Root Cause Analysis: Managed defect lifecycle in JIRA, collaborating closely with developers and product managers to resolve 500+ bugs with zero critical defect escapes.
+• Documentation & Quality Standards: Created and maintained Test Plans, Requirement Traceability Matrices (RTM), execution logs, and daily QA reports.
+• End-to-End Ownership: Sole QA engineer owning multiple modules including Q&A, Document Summarization, and Submission workflows.
+
+My resume is attached for your consideration. I look forward to the possibility of discussing this role with you.
+
+Thank you for your time and consideration.
+
+Best regards,
+Cheshta Verma
+QA Engineer | Manual Testing · Web & Mobile · JIRA · STLC
++91 7037563327
+kmcheshtamzn@gmail.com
+Gurugram, India | linkedin.com/in/cheshta`
 };
 
 export const FOLLOWUP_TEMPLATE = {
-  subject: 'Follow-Up: Application for Backend & AI Engineer | Utkarsh Gupta (4+ Yrs Exp)',
+  subject: 'Follow-Up: Application for QA Engineer / AI QA Role | Cheshta Verma (3+ Yrs Exp)',
   body: `Dear Hiring Team,
 
 I hope this email finds you well.
 
-I am following up on my previous application for Backend & AI Engineer / Python Developer opportunities at your organization.
+I am following up on my previous application for QA Engineer / Test Engineer opportunities at your organization.
 
-I remain very enthusiastic about contributing to your engineering team with my 4+ years of experience developing production GenAI pipelines (LangChain, AWS Bedrock, OpenAI), high-performance FastAPI/Django microservices, and cloud-native solutions on AWS and Azure (serving enterprise clients like PwC and Aditya Birla Group).
+I remain very enthusiastic about bringing my 3+ years of QA experience (Manual, Postman REST API testing, SQL validation, and AI/GenAI LLM response testing at PwC India via Aerolex Labs) to your team.
 
-I have re-attached my resume for your convenience. I would welcome the opportunity to connect for a brief discussion regarding any active or upcoming technical openings.
+I have re-attached my resume for your convenience. I would welcome the opportunity to connect for a brief conversation regarding any current or upcoming QA openings.
 
 Thank you once again for your time and consideration.
 
 Best regards,
-Utkarsh Gupta
-Backend & AI Engineer | Python · FastAPI · LLMs · AWS
-+91 8840143567
-gutkarsh191@gmail.com
-LinkedIn | GitHub`
+Cheshta Verma
+QA Engineer | SDET (Manual & API) | AI / GenAI QA
++91 7037563327
+kmcheshtamzn@gmail.com
+Gurugram, India | linkedin.com/in/cheshta`
 };
 
 // Aliases for compatibility across components and core.ts
-export const FRESH_TEMPLATE = BACKEND_AI_TEMPLATE;
-export const BACKEND_FRESH_TEMPLATE = PYTHON_BACKEND_TEMPLATE;
-export const FRONTEND_FRESH_TEMPLATE = PYTHON_BACKEND_TEMPLATE;
+export const BACKEND_AI_TEMPLATE = QA_ENGINEER_TEMPLATE;
+export const PYTHON_BACKEND_TEMPLATE = API_SDET_TEMPLATE;
+export const GENAI_LLM_TEMPLATE = AI_GENAI_QA_TEMPLATE;
+export const CLOUD_BACKEND_TEMPLATE = MANUAL_QA_TEMPLATE;
+export const FRESH_TEMPLATE = QA_ENGINEER_TEMPLATE;
+export const BACKEND_FRESH_TEMPLATE = API_SDET_TEMPLATE;
+export const FRONTEND_FRESH_TEMPLATE = MANUAL_QA_TEMPLATE;
 export const FRONTEND_FOLLOWUP_TEMPLATE = FOLLOWUP_TEMPLATE;
-export const FRONTEND_TEMPLATE = PYTHON_BACKEND_TEMPLATE;
-export const AI_FRONTEND_TEMPLATE = GENAI_LLM_TEMPLATE;
-export const FULLSTACK_TEMPLATE = CLOUD_BACKEND_TEMPLATE;
-export const BACKEND_TEMPLATE = PYTHON_BACKEND_TEMPLATE;
+export const FRONTEND_TEMPLATE = MANUAL_QA_TEMPLATE;
+export const AI_FRONTEND_TEMPLATE = AI_GENAI_QA_TEMPLATE;
+export const FULLSTACK_TEMPLATE = API_SDET_TEMPLATE;
+export const BACKEND_TEMPLATE = QA_ENGINEER_TEMPLATE;
 
 export const ROLE_TEMPLATES: RoleTemplate[] = [
   {
-    id: 'ai',
-    label: 'Backend & AI Engineer',
-    badge: 'Python / LLMs / AWS',
-    subject: BACKEND_AI_TEMPLATE.subject,
-    body: BACKEND_AI_TEMPLATE.body
+    id: 'qa',
+    label: 'QA Engineer (Manual & API)',
+    badge: 'Postman / REST APIs / SQL',
+    subject: QA_ENGINEER_TEMPLATE.subject,
+    body: QA_ENGINEER_TEMPLATE.body
   },
   {
-    id: 'backend',
-    label: 'Python Backend Developer',
-    badge: 'FastAPI / Django / AWS',
-    subject: PYTHON_BACKEND_TEMPLATE.subject,
-    body: PYTHON_BACKEND_TEMPLATE.body
+    id: 'ai_qa',
+    label: 'AI / GenAI QA Engineer',
+    badge: 'LLM Testing / RAG / Prompts',
+    subject: AI_GENAI_QA_TEMPLATE.subject,
+    body: AI_GENAI_QA_TEMPLATE.body
   },
   {
-    id: 'genai',
-    label: 'GenAI & LLM Specialist',
-    badge: 'LangChain / Bedrock / RAG',
-    subject: GENAI_LLM_TEMPLATE.subject,
-    body: GENAI_LLM_TEMPLATE.body
+    id: 'api_sdet',
+    label: 'API QA / SDET Specialist',
+    badge: 'API Testing / Postman / SQL',
+    subject: API_SDET_TEMPLATE.subject,
+    body: API_SDET_TEMPLATE.body
   },
   {
-    id: 'python',
-    label: 'Cloud & Microservices Engineer',
-    badge: 'AWS Lambda / Docker / SRE',
-    subject: CLOUD_BACKEND_TEMPLATE.subject,
-    body: CLOUD_BACKEND_TEMPLATE.body
+    id: 'manual_qa',
+    label: 'Manual & Mobile QA',
+    badge: 'Web / Mobile / JIRA / UAT',
+    subject: MANUAL_QA_TEMPLATE.subject,
+    body: MANUAL_QA_TEMPLATE.body
   }
 ];

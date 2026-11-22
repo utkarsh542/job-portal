@@ -151,7 +151,7 @@ export const JobRadar: React.FC<JobRadarProps> = ({ onImportLeads }) => {
               <label className="modal-label">Job Title / Position</label>
               <input
                 type="text"
-                placeholder="e.g. Python Developer, Backend & AI Engineer, FastAPI Developer"
+                placeholder="e.g. QA Engineer, SDET (Manual & API), AI/GenAI QA, Automation Tester"
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
                 className="search-input"

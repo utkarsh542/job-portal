@@ -30,8 +30,22 @@ export const BulkPasteMailer: React.FC = () => {
     return selectedRole === 'ai' ? BACKEND_AI_TEMPLATE.body : PYTHON_BACKEND_TEMPLATE.body;
   });
 
-  const [smtpUser, setSmtpUser] = useState(() => localStorage.getItem('sheetSync_smtpUser') || 'gutkarsh191@gmail.com');
-  const [smtpPass, setSmtpPass] = useState(() => (localStorage.getItem('sheetSync_smtpPass') || 'akqltiacqtgtptsw').replace(/\s+/g, ''));
+  const [smtpUser, setSmtpUser] = useState(() => {
+    const saved = (localStorage.getItem('sheetSync_smtpUser') || '').trim();
+    if (!saved || saved === 'gutkarsh191@gmail.com' || saved.toLowerCase().includes('utkarsh')) {
+      localStorage.setItem('sheetSync_smtpUser', 'kmcheshtamzn@gmail.com');
+      return 'kmcheshtamzn@gmail.com';
+    }
+    return saved;
+  });
+  const [smtpPass, setSmtpPass] = useState(() => {
+    let p = (localStorage.getItem('sheetSync_smtpPass') || '').replace(/\s+/g, '');
+    if (!p || p === 'akqltiacqtgtptsw') {
+      p = 'bixwjrotqbhdelun';
+      try { localStorage.setItem('sheetSync_smtpPass', p); } catch {}
+    }
+    return p;
+  });
 
   const [processedBatches, setProcessedBatches] = useState<Record<number, boolean>>({});
   const [sendingBatchIndex, setSendingBatchIndex] = useState<number | null>(null);
@@ -84,7 +98,7 @@ export const BulkPasteMailer: React.FC = () => {
       setSubject(role === 'ai' ? BACKEND_AI_TEMPLATE.subject : PYTHON_BACKEND_TEMPLATE.subject);
       setBodyTemplate(role === 'ai' ? BACKEND_AI_TEMPLATE.body : PYTHON_BACKEND_TEMPLATE.body);
     }
-    toast.info(role === 'ai' ? '🤖 Switched to Backend & AI Engineer Role' : '⚙️ Switched to Python Backend Developer Role');
+    toast.info(role === 'ai' ? '🤖 Switched to AI / GenAI QA Role' : '⚙️ Switched to QA Engineer (Manual & API) Role');
   };
 
   const handleSwitchCampaignType = (type: 'fresh' | 'followup') => {
@@ -201,7 +215,7 @@ export const BulkPasteMailer: React.FC = () => {
             subject: subject.trim(),
             body: bodyTemplate.trim(),
             roleType: selectedRole,
-            resumeFileName: 'Utkarsh_Gupta.pdf'
+            resumeFileName: 'Cheshta_Verma.pdf'
           })
         });
         const data = await res.json();
@@ -260,7 +274,7 @@ export const BulkPasteMailer: React.FC = () => {
             subject: subject.trim(),
             body: bodyTemplate.trim(),
             roleType: selectedRole,
-            resumeFileName: 'Utkarsh_Gupta.pdf'
+            resumeFileName: 'Cheshta_Verma.pdf'
           })
         });
         const data = await res.json();
@@ -485,9 +499,9 @@ hr@cred.club; jobs@phonepe.com"
                 }}
               >
                 <Cpu size={16} />
-                <span>🤖 Backend & AI Engineer</span>
+                <span>🤖 AI / GenAI QA Engineer</span>
                 <span style={{ fontSize: '0.7rem', padding: '0.1rem 0.45rem', borderRadius: '4px', background: 'rgba(255,255,255,0.2)', fontWeight: 700 }}>
-                  Backend & AI Resume PDF
+                  AI QA Resume PDF
                 </span>
               </button>
 
@@ -510,16 +524,16 @@ hr@cred.club; jobs@phonepe.com"
                 }}
               >
                 <Code size={16} />
-                <span>⚙️ Python Backend Developer</span>
+                <span>⚙️ QA Engineer (Manual & API)</span>
                 <span style={{ fontSize: '0.7rem', padding: '0.15rem 0.45rem', borderRadius: '4px', background: 'rgba(255,255,255,0.2)', fontWeight: 700 }}>
-                  Python Resume PDF
+                  QA Resume PDF
                 </span>
               </button>
             </div>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-            <label className="modal-label">Email Subject ({selectedRole === 'ai' ? 'BACKEND & AI' : 'PYTHON BACKEND'} - {campaignType.toUpperCase()} MODE)</label>
+            <label className="modal-label">Email Subject ({selectedRole === 'ai' ? 'AI / GENAI QA' : 'QA (MANUAL & API)'} - {campaignType.toUpperCase()} MODE)</label>
             <input
               type="text"
               value={subject}
@@ -530,7 +544,7 @@ hr@cred.club; jobs@phonepe.com"
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-            <label className="modal-label">Email Message Template ({selectedRole === 'ai' ? 'BACKEND & AI' : 'PYTHON BACKEND'} - {campaignType.toUpperCase()} MODE)</label>
+            <label className="modal-label">Email Message Template ({selectedRole === 'ai' ? 'AI / GENAI QA' : 'QA (MANUAL & API)'} - {campaignType.toUpperCase()} MODE)</label>
             <textarea
               rows={6}
               value={bodyTemplate}
@@ -554,14 +568,14 @@ hr@cred.club; jobs@phonepe.com"
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Paperclip size={16} style={{ color: selectedRole === 'ai' ? '#8b5cf6' : '#0ea5e9' }} />
             <span style={{ fontSize: '0.85rem', fontWeight: 600, color: selectedRole === 'ai' ? '#8b5cf6' : '#0ea5e9' }}>
-              Utkarsh_Gupta.pdf
+              Cheshta_Verma.pdf
             </span>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              (Attached automatically to all {selectedRole === 'ai' ? 'Backend & AI' : 'Python Backend'} emails)
+              (Attached automatically to all {selectedRole === 'ai' ? 'AI / GenAI QA' : 'QA Engineer'} emails)
             </span>
           </div>
           <span style={{ fontSize: '0.75rem', background: selectedRole === 'ai' ? '#8b5cf6' : '#0ea5e9', color: '#fff', padding: '0.15rem 0.5rem', borderRadius: '4px', fontWeight: 600 }}>
-            {selectedRole === 'ai' ? 'Backend & AI PDF Attached' : 'Python Backend PDF Attached'}
+            {selectedRole === 'ai' ? 'AI / GenAI QA PDF Attached' : 'QA Engineer PDF Attached'}
           </span>
         </div>
       </div>

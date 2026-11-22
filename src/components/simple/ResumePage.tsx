@@ -55,7 +55,7 @@ export const ResumePage: React.FC = () => {
     <div className="page">
       <div className="glass-card">
         <h2 className="page-title">Resume Manager</h2>
-        <p className="page-sub">Active resume for Backend & AI Engineer and Python Developer campaigns.</p>
+        <p className="page-sub">Active resume for AI / GenAI QA and QA Engineer (Manual & API) campaigns.</p>
       </div>
 
       <div className="cols">

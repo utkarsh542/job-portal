@@ -111,8 +111,22 @@ export const FintechDirectory: React.FC = () => {
   const [batchLogs, setBatchLogs] = useState<Record<number, string>>({});
   const [isSendingAll, setIsSendingAll] = useState(false);
 
-  const [smtpUser] = useState(() => localStorage.getItem('sheetSync_smtpUser') || 'gutkarsh191@gmail.com');
-  const [smtpPass] = useState(() => (localStorage.getItem('sheetSync_smtpPass') || 'akqltiacqtgtptsw').replace(/\s+/g, ''));
+  const [smtpUser] = useState(() => {
+    const saved = (localStorage.getItem('sheetSync_smtpUser') || '').trim();
+    if (!saved || saved === 'gutkarsh191@gmail.com' || saved.toLowerCase().includes('utkarsh')) {
+      localStorage.setItem('sheetSync_smtpUser', 'kmcheshtamzn@gmail.com');
+      return 'kmcheshtamzn@gmail.com';
+    }
+    return saved;
+  });
+  const [smtpPass] = useState(() => {
+    let p = (localStorage.getItem('sheetSync_smtpPass') || '').replace(/\s+/g, '');
+    if (!p || p === 'akqltiacqtgtptsw') {
+      p = 'bixwjrotqbhdelun';
+      try { localStorage.setItem('sheetSync_smtpPass', p); } catch {}
+    }
+    return p;
+  });
   const [selectedRole, setSelectedRole] = useState<string>('ai');
   const [subject, setSubject] = useState(ROLE_TEMPLATES[0].subject);
   const [emailBody, setEmailBody] = useState(ROLE_TEMPLATES[0].body);

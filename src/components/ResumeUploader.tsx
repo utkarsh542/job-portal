@@ -79,7 +79,7 @@ export const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onUploaded, comp
 
         const data = await res.json();
         if (res.ok && data.success) {
-          toast.success(`✅ Resume updated! Saved as public/Utkarsh_Gupta.pdf & linked to all email campaigns.`);
+          toast.success(`✅ Resume updated! Saved as public/Cheshta_Verma.pdf & linked to all email campaigns.`);
           await fetchResumeInfo();
           if (onUploaded) onUploaded();
         } else {
@@ -119,7 +119,7 @@ export const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onUploaded, comp
   };
 
   const openResumePreview = () => {
-    const resumeUrl = `${getApiBase()}/${resumeInfo?.fileName || 'Utkarsh_Gupta.pdf'}`;
+    const resumeUrl = `${getApiBase()}/${resumeInfo?.fileName || 'Cheshta_Verma.pdf'}`;
     window.open(resumeUrl, '_blank');
   };
 
@@ -129,7 +129,7 @@ export const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onUploaded, comp
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <FileText size={16} style={{ color: '#6366f1' }} />
           <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-            Attachment: {resumeInfo?.fileName || 'Utkarsh_Gupta.pdf'}
+            Attachment: {resumeInfo?.fileName || 'Cheshta_Verma.pdf'}
           </span>
           {resumeInfo?.exists && (
             <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
@@ -192,7 +192,7 @@ export const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onUploaded, comp
               Resume Attachment Manager
             </h3>
             <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: 0 }}>
-              Upload updated PDF resume to automatically replace existing resume in <b>public/Utkarsh_Gupta.pdf</b>
+              Upload updated PDF resume to automatically replace existing resume in <b>public/Cheshta_Verma.pdf</b>
             </p>
           </div>
         </div>
@@ -232,7 +232,7 @@ export const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onUploaded, comp
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 0' }}>
             <Loader2 size={28} className="animate-spin" style={{ color: '#6366f1' }} />
             <span style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-              Replacing & Saving PDF to public/Utkarsh_Gupta.pdf...
+              Replacing & Saving PDF to public/Cheshta_Verma.pdf...
             </span>
           </div>
         ) : (
@@ -245,7 +245,7 @@ export const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onUploaded, comp
             </div>
 
             <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: 0 }}>
-              Or click below to browse your updated PDF resume file. Existing <b>Utkarsh_Gupta.pdf</b> will be overwritten automatically.
+              Or click below to browse your updated PDF resume file. Existing <b>Cheshta_Verma.pdf</b> will be overwritten automatically.
             </p>
 
             <label 

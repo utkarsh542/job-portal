@@ -7,8 +7,8 @@ export type Bucket = Role | 'other';
 export type TemplateKind = 'fresh' | 'followup';
 
 export const ROLE_LABEL: Record<Bucket, string> = {
-  ai: 'Backend & AI Engineer',
-  backend: 'Python Backend Developer',
+  ai: 'AI / GenAI QA Engineer',
+  backend: 'QA Engineer (Manual & API)',
   other: 'Other',
 };
 
@@ -19,17 +19,26 @@ export const ROLE_COLOR: Record<Bucket, string> = {
 };
 
 export const RESUME_FILE: Record<Role, string> = {
-  ai: 'Utkarsh_Gupta.pdf',
-  backend: 'Utkarsh_Gupta.pdf',
+  ai: 'Cheshta_Verma.pdf',
+  backend: 'Cheshta_Verma.pdf',
 };
 
 // ── Gmail credentials (one place, shared by every page) ──
 const USER_KEY = 'sheetSync_smtpUser';
 const PASS_KEY = 'sheetSync_smtpPass';
-export const getCreds = () => ({
-  user: (localStorage.getItem(USER_KEY) || 'gutkarsh191@gmail.com').trim(),
-  pass: (localStorage.getItem(PASS_KEY) || 'akqltiacqtgtptsw').trim().replace(/\s+/g, ''),
-});
+export const getCreds = () => {
+  let user = (localStorage.getItem(USER_KEY) || '').trim();
+  if (!user || user === 'gutkarsh191@gmail.com' || user.toLowerCase().includes('utkarsh')) {
+    user = 'kmcheshtamzn@gmail.com';
+    try { localStorage.setItem(USER_KEY, user); } catch {}
+  }
+  let pass = (localStorage.getItem(PASS_KEY) || '').trim().replace(/\s+/g, '');
+  if (!pass || pass === 'akqltiacqtgtptsw') {
+    pass = 'bixwjrotqbhdelun';
+    try { localStorage.setItem(PASS_KEY, pass); } catch {}
+  }
+  return { user, pass };
+};
 export const saveCreds = (user: string, pass: string) => {
   localStorage.setItem(USER_KEY, user.trim());
   localStorage.setItem(PASS_KEY, pass.trim().replace(/\s+/g, ''));
@@ -47,7 +56,12 @@ export const getTemplate = (kind: TemplateKind, role: Role): { subject: string; 
     const saved = localStorage.getItem(tplKey(kind, role));
     if (saved) {
       const t = JSON.parse(saved);
-      if (t && typeof t.subject === 'string' && typeof t.body === 'string') return t;
+      if (t && typeof t.subject === 'string' && typeof t.body === 'string') {
+        // Discard any legacy saved templates from previous user
+        if (!t.body.includes('Utkarsh') && !t.subject.includes('Utkarsh')) {
+          return t;
+        }
+      }
     }
   } catch { /* fall through to default */ }
   return { ...DEFAULTS[kind][role] };
@@ -60,10 +74,10 @@ export const resetTemplate = (kind: TemplateKind, role: Role) => {
 };
 
 // ── Role detection from what you typed in subject / body ──
-// AI words: ai, genai, llm, rag, langchain, bedrock, gpt, agent, prompt, ml
-// Backend words: python, fastapi, django, be, backend, api, microservice, aws, lambda
-const AI_RE = /\b(ai|gen[\s-]?ai|llm|rag|langchain|bedrock|gpt|agent|prompt|ml)\b/i;
-const BE_RE = /\b(python|fastapi|django|be|back[\s-]?end|api|microservice|aws|lambda)\b/i;
+// AI QA words: ai, genai, llm, rag, hallucination, prompt, model, classification, nlp
+// Manual & API QA words: qa, test, manual, api, postman, sdet, rest, sql, uat, regression, smoke, bug, defect, jira
+const AI_RE = /\b(ai|gen[\s-]?ai|llm|rag|hallucination|prompt|model|nlp)\b/i;
+const BE_RE = /\b(qa|test|manual|api|postman|sdet|rest|sql|uat|regression|smoke|bug|defect|jira)\b/i;
 
 const firstMatch = (text: string): Bucket | null => {
   const ai = text.search(AI_RE);

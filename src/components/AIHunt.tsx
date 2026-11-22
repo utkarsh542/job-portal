@@ -47,28 +47,28 @@ const PLATFORMS = [
 
 const COVER_LETTER = `Dear Hiring Team,
 
-I am writing to express my strong interest in Backend & AI Engineer opportunities at your organization.
+I am writing to express my strong interest in QA Engineer / Software Test Engineer opportunities at your organization.
 
-I bring 4+ years of experience engineering production-grade backend systems and GenAI applications for enterprise clients including PwC and Aditya Birla Group. My core expertise centers on Python, FastAPI, microservices, cloud-native deployments on AWS and Azure, and building end-to-end LLM/GenAI pipelines.
+I bring 3+ years of hands-on experience in Manual Software Testing, Web & Mobile Testing, REST API Testing, and AI/GenAI application testing. Currently deployed at PwC India (via Aerolex Labs) on the Navigate Tax Hub enterprise platform, I specialize in end-to-end quality assurance across functional, regression, smoke, sanity, integration, UAT, and API testing.
 
 Key Highlights of my experience:
-• GenAI & LLM Pipelines: Built production GenAI pipelines using OpenAI, Azure OpenAI, AWS Bedrock, and LangChain for document Q&A, summarization, and risk prediction at PwC (processing 500+ tax documents/month) with OCR integration (Tesseract, Docling, AWS Textract) and vector databases.
-• High-Scale Fintech & API Integrations: Developed and maintained mission-critical third-party financial API integrations (Razorpay, Digio, Tartan) for Aditya Birla Group serving a 10M+ customer base; reduced integration failure rate by ~30% via robust retry and error-handling layers.
-• Scalable Serverless & Microservices: Architected FastAPI + PostgreSQL backend on AWS Lambda (serverless), reducing infrastructure costs by ~35% vs EC2, and implemented Redis caching layers improving API response times by ~60%.
-• Asynchronous Architecture & SRE: Designed distributed message architectures with AWS SNS+SQS (50K+ msgs/day) and Celery+Redis task queues; drove SRE best practices maintaining 99.5%+ service availability.
+• Comprehensive QA & Test Execution: Executed 5,000+ test cases across complex web and mobile enterprise workflows with complete RTM traceability; tracked and managed 500+ defects through JIRA with detailed reproduction steps and root-cause analysis (zero critical defect escapes in production).
+• REST API Testing & Data Validation: Conducted thorough API testing using Postman (HTTP status codes, request/response payload validation, JSON schema validation, CRUD operations, auth/RBAC testing, and negative edge cases) with SQL-based backend data reconciliation.
+• AI & GenAI Application Testing: Spearheaded end-to-end testing of LLM-powered enterprise modules at PwC India — validating LLM-generated Q&A for accuracy, source traceability, hallucination detection, prompt testing, and RAG response validation.
+• Enterprise Agile Collaboration: Actively participate in Sprint ceremonies, test planning, daily QA logs, release validation, and cross-functional triage using JIRA, Zephyr, TestRail, and Azure DevOps.
 
-I would be thrilled to bring my experience in Python backend microservices and GenAI systems to your engineering team.
+I would welcome the opportunity to discuss how my QA experience, attention to detail, and API/AI testing skills can add value to your engineering and QA teams.
 
 Please find my resume attached for your consideration.
 
 Thank you for your time and consideration.
 
 Best regards,
-Utkarsh Gupta
-Backend & AI Engineer | Python · FastAPI · LLMs · AWS
-+91 8840143567
-gutkarsh191@gmail.com
-LinkedIn | GitHub`;
+Cheshta Verma
+QA Engineer | SDET (Manual & API) | AI / GenAI QA
++91 7037563327
+kmcheshtamzn@gmail.com
+Gurugram, India | linkedin.com/in/cheshta`;
 
 // ─── Styles ───────────────────────────────────────────────────
 const S = {
@@ -147,14 +147,34 @@ const S = {
 
 // ─── Component ────────────────────────────────────────────────
 export const AIHunt: React.FC = () => {
-  const [position, setPosition] = useState('Backend & AI Engineer');
+  const [position, setPosition] = useState('QA Engineer (Manual & API / AI Testing)');
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(['naukri', 'linkedin', 'indeed', 'greenhouse', 'lever', 'ashby', 'workday', 'workable']);
   const [geminiKey, setGeminiKey] = useState(() => localStorage.getItem('geminiApiKey') || '');
   const [exaKey, setExaKey] = useState(() => localStorage.getItem('exaApiKey') || '');
-  const [smtpUser, setSmtpUser] = useState(() => localStorage.getItem('sheetSync_smtpUser') || 'gutkarsh191@gmail.com');
-  const [smtpPass, setSmtpPass] = useState(() => (localStorage.getItem('sheetSync_smtpPass') || 'akqltiacqtgtptsw').replace(/\s+/g, ''));
+  const [smtpUser, setSmtpUser] = useState(() => {
+    const saved = (localStorage.getItem('sheetSync_smtpUser') || '').trim();
+    if (!saved || saved === 'gutkarsh191@gmail.com' || saved.toLowerCase().includes('utkarsh')) {
+      localStorage.setItem('sheetSync_smtpUser', 'kmcheshtamzn@gmail.com');
+      return 'kmcheshtamzn@gmail.com';
+    }
+    return saved;
+  });
+  const [smtpPass, setSmtpPass] = useState(() => {
+    let p = (localStorage.getItem('sheetSync_smtpPass') || '').replace(/\s+/g, '');
+    if (!p || p === 'akqltiacqtgtptsw') {
+      p = 'bixwjrotqbhdelun';
+      try { localStorage.setItem('sheetSync_smtpPass', p); } catch {}
+    }
+    return p;
+  });
   const [showSmtpSettings, setShowSmtpSettings] = useState(false);
-  const [tempSmtpPass, setTempSmtpPass] = useState(() => (localStorage.getItem('sheetSync_smtpPass') || 'akqltiacqtgtptsw').replace(/\s+/g, ''));
+  const [tempSmtpPass, setTempSmtpPass] = useState(() => {
+    let p = (localStorage.getItem('sheetSync_smtpPass') || '').replace(/\s+/g, '');
+    if (!p || p === 'akqltiacqtgtptsw') {
+      p = 'bixwjrotqbhdelun';
+    }
+    return p;
+  });
 
   const [searching, setSearching] = useState(false);
   const [results, setResults] = useState<HuntResult[]>([]);
@@ -371,7 +391,13 @@ export const AIHunt: React.FC = () => {
     createBatches(results, selectedIds);
   };
 
-  const getEmail = (r: HuntResult) => editEmails[r.id] ?? r.hrEmail;
+  const getEmail = (r: HuntResult) => {
+    if (editEmails[r.id] !== undefined) return editEmails[r.id];
+    if (r.hrEmail && r.hrEmail.trim()) return r.hrEmail.trim();
+    if (r.candidateEmails && r.candidateEmails.length > 0 && r.candidateEmails[0]) return r.candidateEmails[0].trim();
+    const cleanCo = String(r.company || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    return cleanCo ? `careers@${cleanCo}.com` : '';
+  };
 
   const sendOne = async (r: HuntResult): Promise<boolean> => {
     const rawEmail = getEmail(r);
@@ -406,10 +432,10 @@ export const AIHunt: React.FC = () => {
           smtpUser: smtpUser.trim(),
           smtpPass: smtpPass.trim(),
           to: email,
-          subject: 'Application for Backend & AI Engineer | 4+ Years Experience | Python, FastAPI, GenAI',
+          subject: 'Application for QA Engineer / SDET (Manual & API Testing) | Cheshta Verma (3+ Yrs Exp)',
           body: COVER_LETTER,
-          roleType: 'ai',
-          resumeFileName: 'Utkarsh_Gupta.pdf'
+          roleType: 'qa',
+          resumeFileName: 'Cheshta_Verma.pdf'
         }),
       });
       const d = await resp.json();
@@ -519,7 +545,7 @@ export const AIHunt: React.FC = () => {
                 value={position}
                 onChange={e => setPosition(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                placeholder="e.g. Python Developer, Backend & AI Engineer, FastAPI Developer..."
+                placeholder="e.g. QA Engineer, SDET (Manual & API), AI/GenAI QA, API Tester..."
                 style={{ ...S.input, fontSize: '1rem', fontWeight: 600 }}
               />
             </div>
@@ -626,7 +652,7 @@ export const AIHunt: React.FC = () => {
                       type="email"
                       value={smtpUser}
                       onChange={e => setSmtpUser(e.target.value)}
-                      placeholder="e.g. gutkarsh191@gmail.com"
+                      placeholder="e.g. kmcheshtamzn@gmail.com"
                       style={{ ...S.input, fontSize: '0.85rem' }}
                     />
                   </div>

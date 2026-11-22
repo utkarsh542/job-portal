@@ -1,6 +1,6 @@
 import React from 'react';
 import { ROLE_TEMPLATES, type RoleTemplate } from '../templates';
-import { Cpu, Server, Sparkles, Cloud } from 'lucide-react';
+import { CheckCircle2, FileCheck, Server, Sparkles } from 'lucide-react';
 
 interface RoleSelectorProps {
   selectedRole: string;
@@ -8,10 +8,10 @@ interface RoleSelectorProps {
 }
 
 const ICONS: Record<string, React.ReactNode> = {
-  ai: <Cpu size={14} />,
-  backend: <Server size={14} />,
-  genai: <Sparkles size={14} />,
-  python: <Cloud size={14} />
+  qa: <CheckCircle2 size={14} />,
+  ai_qa: <Sparkles size={14} />,
+  api_sdet: <Server size={14} />,
+  manual_qa: <FileCheck size={14} />
 };
 
 export const RoleSelector: React.FC<RoleSelectorProps> = ({ selectedRole, onSelectRole }) => {
